@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+
+  <body>
+    <!--DO NOT CHANGE THIS ID's-->
+
+    <div id="container">
+      <div id="sidebar">
+        <!--add your sidebar component here-->
+      </div>
+
+      <div id="main">
+        <!--DO NOT CHANGE THIS ID's-->
+        <!--Show the clicked article in detailed format here ONLY-->
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+<script type="module">
+
+
+import sidebar from "./components/sidebar.js"
+console.log(sidebar())
+
+let side=document.querySelector("#sidebar")
+side.innerHTML=sidebar()
+
+let mydata=JSON.parse(localStorage.getItem("article"))
+console.log(mydata)
+
+let main_div=document.querySelector("#main")
+
+let image=document.createElement("img")
+image.style.width="400px"
+image.src=mydata.urlToImage
+
+let heading=document.createElement("h2")
+heading.textContent=`Title: ${mydata.title}`
+
+let dis=document.createElement("p")
+dis.textContent=`description: ${mydata.description}`
+
+let date=document.createElement("h6")
+date.textContent=`date: ${mydata.publishedAt} / source: ${mydata.source.name}`
+
+let content=document.createElement("p")
+content.textContent=`content:${mydata.content}`
+
+
+main_div.append(image,heading,dis,date,content)
+
+
+
+
+
+
+
+let input=document.querySelector("#searchbar")
+input.addEventListener("keypress",(e)=>{
+  if(e.key=="Enter"){
+    let input_data=document.querySelector("#searchbar").value
+   localStorage.setItem("search_term", input_data)
+   window.location.href="search.html"
+  }
+})
+
+</script>
+
+
